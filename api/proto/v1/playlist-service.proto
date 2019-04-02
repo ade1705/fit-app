@@ -1,0 +1,74 @@
+syntax = "proto3";
+package v1;
+
+import "google/protobuf/timestamp.proto";
+
+message Playlist {
+    int64 id = 1;
+    int64 user_id = 2;
+    string name = 3;
+    string description = 4;
+    string image = 5;
+    google.protobuf.Timestamp reminder = 6;
+}
+
+message CreateRequest{
+    string api = 1;
+    Playlist playlist = 2;
+}
+
+message CreateResponse{
+    string api = 1;
+    int64 id = 2;
+}
+
+message ReadRequest{
+    string api = 1;
+    int64 id = 2;
+}
+
+message ReadResponse{
+    string api = 1;
+    Playlist playlist = 2;
+}
+
+message UpdateRequest{
+    string api = 1;
+    Playlist playlist = 2;
+}
+
+message UpdateResponse{
+    string api = 1;
+    int64 updated = 2;
+}
+
+message DeleteRequest{
+    string api = 1;
+    int64 id = 2;
+}
+
+message DeleteResponse{
+    string api = 1;
+    int64 deleted = 2;
+}
+
+message ReadAllRequest{
+    string api =1 ;
+}
+
+message ReadAllResponse{
+    string api = 1;
+    repeated Playlist playlists = 2;
+}
+
+service PlaylistService {
+    rpc Create(CreateRequest) returns (CreateResponse);
+
+    rpc Read(ReadRequest) returns (ReadResponse);
+
+    rpc Update(UpdateRequest) returns (UpdateResponse);
+
+    rpc Delete(DeleteRequest) returns (DeleteResponse);
+
+    rpc ReadAll(ReadAllRequest) returns (ReadAllResponse);
+}
